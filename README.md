@@ -1,1 +1,1 @@
-# blog.github.io
+# blogstore
