@@ -1,0 +1,93 @@
+// Custom styles.
+
+/*字体设置*/
+@font-face {
+  font-family: 'Linux Biolinum';
+  src: url("/fonts/LinBiolinum_Rah.eot");
+  font-display: swap;
+  src: url("/fonts//LinBiolinum_Rah.eot") format('embedded-opentype'), url("/fonts/LinBiolinum_Rah.woff2") format('woff2'), url("/fonts/LinBiolinum_Rah.woff") format('woff'), url("/fonts/LinBiolinum_Rah.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Linux Biolinum';
+  src: url("/fonts/LinBiolinum_RBah.eot");
+  font-display: swap;
+  src: url("/fonts/LinBiolinum_RBah.eot") format('embedded-opentype'), url("/fonts/LinBiolinum_RBah.woff2") format('woff2'), url("/fonts/LinBiolinum_RBah.woff") format('woff'), url("/fonts/LinBiolinum_RBah.ttf") format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Linux Biolinum';
+  src: url("/fonts//LinBiolinum_RIah.eot");
+  font-display: swap;
+  src: url("/fonts/LinBiolinum_RIah.eot") format('embedded-opentype'), url("/fonts/LinBiolinum_RIah.woff2") format('woff2'), url("/fonts/LinBiolinum_RIah.woff") format('woff'), url("/fonts/LinBiolinum_RIah.ttf") format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+
+body {
+	//background-image:url(/images/background3.jpg);
+	background-repeat: no-repeat;
+	background-attachment:fixed;
+	background-position:50% 50%; 
+	background:#fff
+	//background:url(/images/bg.jpg)
+}
+.header{
+	background:#eee
+}
+
+.container .main-inner {
+    width: 900px;
+}
+
+.posts-expand{
+	//background:#fff;
+}
+
+.posts-expand .post{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 25px;
+    //-webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
+    //-moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+	box-shadow: 0 0 40px rgba(0,0,0,.12);
+}
+
+/*设置文章字体排版合理*/
+.post-body{
+	text-align: justify;
+}
+
+post-block {
+    padding: 20px;
+	background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
+    border-radius: initial;
+}
+
+/* 侧边栏设置 */
+.sidebar{
+	display: block;
+    width: 320px;
+	background-size: 236px 414px;
+    background-repeat: no-repeat;
+    box-shadow: inset 2px 2px 40px #bdb2b2;
+	//background-image: url("/images/bk.jpg");
+	position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    z-index: 1040;
+    box-shadow: inset 0 2px 6px #000;
+    -webkit-transform: translateZ(0);
+    background-color: #fff !important;
+}
+
+/*文章标题样式
+.posts-expand .post-title{
+  text-align: center;
+}*/
