@@ -1,10 +1,10 @@
 ---
 title: Java8中的forEach()方法
-date: 2020-09-113 20:05:55
+date: 2020-09-13 20:05:55
 tags: Java
 categories: 
 - Java
----
+--- 
 
 下面介绍了两种集合的常用遍历方式。废话不多说，直接上代码
 

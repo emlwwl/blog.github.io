@@ -98,7 +98,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next5
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -124,8 +124,8 @@ live2d:
   model:
     use: live2d-widget-model-haruto
   display:
-    position: right
-    width: 150
-    height: 300
+    position: left
+    width: 240
+    height: 480
   mobile:
     show: true

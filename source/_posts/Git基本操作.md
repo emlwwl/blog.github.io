@@ -4,7 +4,7 @@ date: 2020-09-13 20:05:55
 tags: Git
 categories: 
 - Git
----
+--- 
 ### 一、全局设置配置用户名和邮箱
 
 首先安装好git bash后，任意位置打开git bash命令窗口

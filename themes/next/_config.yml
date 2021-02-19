@@ -182,8 +182,8 @@ toc:
 
 sidebar:
   # Sidebar Position, available value: left | right (only for Pisces | Gemini).
-  position: left
-  #position: right
+  #position: left
+  position: right
 
   # Sidebar Display, available value (only for Muse | Mist):
   #  - post    expand on posts automatically. Default.
@@ -229,17 +229,17 @@ auto_excerpt:
 
 # Post meta display settings
 post_meta:
-  item_text: true
-  created_at: true
-  updated_at: false
-  categories: true
+  item_text: true # 是否显示对应的文字
+  created_at: true # 是否显示 创建于
+  updated_at: false # 是否显示 更新于
+  categories: true  # 是否显示分类信息
 
 # Post wordcount display settings
 # Dependencies: https://github.com/willin/hexo-wordcount
 post_wordcount:
   item_text: true
-  wordcount: false
-  min2read: false
+  wordcount: true
+  min2read: true
   totalcount: false
   separated_meta: true
 

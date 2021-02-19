@@ -42,7 +42,7 @@ Websocket它的最大特点就是，服务器可以主动向客户端推送信�
 
 用处：接收来自客户端的请求。
 
-```
+```java
 package com.fangzhizun.websocket;
 
 import com.alibaba.fastjson.JSON;
@@ -246,7 +246,7 @@ public class WebSocketServer extends TextWebSocketHandler {
 
 用处：握手前的调用，可在这里进行请求的校验工作（如权限的校验）
 
-```
+```java
 package com.fangzhizun.websocket;
 
 import com.fangzhizun.common.utils.JWTUtils;
@@ -263,7 +263,7 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 import java.util.Map;
 
 /**
- * @Author 吴威良
+ * @Author willivie
  * @Description: 握手处理器，用于客户端的握手请求
  * 需要实现HandshakeInterceptor接口并注册层spring的一个Bean
  * @Date: 2020/11/4 10:25
@@ -303,7 +303,7 @@ public class CustomHandshakeInterceptor implements HandshakeInterceptor {
 
 用处：注入消息处理器、拦截器，设置url路由
 
-```
+```java
 package com.fangzhizun.websocket;
 
 import com.sun.istack.Nullable;
@@ -320,7 +320,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import javax.annotation.Resource;
 
 /**
- * @Author: 吴威良
+ * @Author: willivie
  * @Description:
  * @Date: 2020/10/21 11:55
  */
@@ -379,7 +379,7 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 
 #### 5、nginx配置反向代理
 
-```
+```bash
 location wss/ {
             proxy_pass http://socket.example.com/;
             proxy_set_header Host $host:$server_port;
@@ -391,10 +391,10 @@ location wss/ {
 
 注意配置关键部分在于HTTP的请求中多了如下： 
 
-```
+```bash
 proxy_set_header Upgrade $http_upgrade;
 proxy_set_header Connection $connection_upgrade;
 proxy_http_version 1.1;
 ```
 
-http1.1协议支持长连接，Upgrade和Connection这两个字段表示请求服务器升级协议为WebSocket。 
+http1.1协议支持长连接，Upgrade和Connection这两个字段表示请求服务器升级协议为WebSocket。
