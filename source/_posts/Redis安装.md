@@ -54,3 +54,4 @@ daemonize yes
 redis-cli
 redis-cli --raw #解决中文乱码问题
 ```
+
