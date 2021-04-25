@@ -1,6 +1,5 @@
-
 ---
-title: MySQL常用知识
+title: MySQL常用命令
 date: 2020-09-13 20:05:55
 tags: MySQL
 categories: 
@@ -20,7 +19,7 @@ categories:
 3、查看当前数据库
 
  `select database();` 
- 
+
 <!--more-->
 
 4、查看当前时间，返回年月日时分秒
