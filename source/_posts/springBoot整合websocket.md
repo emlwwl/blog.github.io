@@ -380,7 +380,7 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 #### 5、nginx配置反向代理
 
 ```bash
-location wss/ {
+location /wss/ {
             proxy_pass http://socket.example.com/;
             proxy_set_header Host $host:$server_port;
             proxy_http_version 1.1;

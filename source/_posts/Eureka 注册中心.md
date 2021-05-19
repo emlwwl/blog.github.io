@@ -6,6 +6,8 @@ categories:
 - SpringCloud
 ---
 
+> 中文版教程：https://www.springcloud.cc/spring-cloud-netflix.html
+
 ## 一、简介
 
 **什么是Eureka？**
@@ -25,7 +27,7 @@ Eureka采用了CS的设计架构，Eureka Server 作为服务注册功能的服�
 
 1、pom.xml
 
-```
+```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
@@ -34,7 +36,7 @@ Eureka采用了CS的设计架构，Eureka Server 作为服务注册功能的服�
 
 2、application.yml
 
-```
+```bash
 eureka:
   instance:
     hostname: localhost #eureka服务端的实例名称
@@ -48,7 +50,7 @@ eureka:
 
 3、Main.java
 
-```
+```java
 @SpringBootApplication
 @EnableEurekaServer //代表是Eureka服务端
 public class EurekaMain
@@ -111,4 +113,6 @@ public class PaymentMain {
 4、先启动Eureka Server项目，后启动Eureka Client。再次访问地址`http://localhost:7070` ，看到如图代表成功
 
 ![](https://static01.imgkr.com/temp/78b8d030f0204c678a9c72d81c6a8121.png )
+
+> Eureka 健康检查：http://localhost:8001/actuator/health
 
