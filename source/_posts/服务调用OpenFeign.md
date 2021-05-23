@@ -3,7 +3,7 @@ title: 服务调用OpenFeign
 date: 2021-05-16 11:05:55
 tags: OpenFeign
 categories: 
-- Spring Cloud
+- SpringCloud
 ---
 
 > Github：https://github.com/spring-cloud/spring-cloud-openfeign

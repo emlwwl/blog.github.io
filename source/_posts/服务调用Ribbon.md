@@ -3,7 +3,7 @@ title: 服务调用Ribbon
 date: 2021-05-15 11:05:55
 tags: Ribbon
 categories: 
-- Spring Cloud
+- SpringCloud
 ---
 > 官网：https://github.com/Netflix/ribbon
 

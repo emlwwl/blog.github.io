@@ -3,7 +3,7 @@ title: 服务熔断与降级-Hystrix
 date: 2021-05-19 20:05:55
 tags: Hystrix
 categories: 
-- Spring Cloud
+- SpringCloud
 ---
 
 > 官网：<https://github.com/Netflix/Hystrix/wiki> 
@@ -22,9 +22,9 @@ categories:
 
 ### Hystrix是什么？
 
-Hystrix是一个用于处理分布式系统的延迟和容错的开源库，在分布式系统里，许多依赖不可避免的会调用失败，比如超时、异常等，Hystrix能够保证在一个依赖出问题的情况下，不会导致整体服务失败，避免级联故障，以提高分布式系统的弹性。通过hystrix可以解决雪崩效应问题，它提供了资源隔离、降级机制、融断、缓存等功能。 
+Hystrix是一个用于处理分布式系统的延迟和容错的开源库，在分布式系统里，许多依赖不可避免的会调用失败，比如超时、异常等，Hystrix能够保证在一个依赖出问题的情况下，不会导致整体服务失败，避免级联故障，以提高分布式系统的弹性。通过hystrix可以解决雪崩效应问题，它提供了资源隔离、降级机制、熔断、缓存等功能。 
 
-## 二、Hystrix的三个重要概念
+## 二、Hystrix的三个重要特性
 
 ### 1、服务降级
 
@@ -74,7 +74,6 @@ public class PaymentHystrixMain {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "100000")
     })
     public String paymentInfo_TimeOut(Integer id) {
-        System.out.println("跑起来！");
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
@@ -323,3 +322,99 @@ public String paymentCircuitBreaker_fallback(@PathVariable("id") Integer id) {
 
 #### @EnableHystrix注解与@EnableCircuitBreaker的区别
 这两个注解都是激活hystrix的功能，我们根据上面代码得出来结论，只需要在服务启动类加入@EnableHystrix注解即可，无须增加@EnableCircuitBreaker注解，本身@EnableHystrix注解已经涵盖了EnableCircuitBreaker的功能。
+
+### 3、Hystrix的服务监控 dashborad
+
+#### 概述
+
+除了隔离依赖服务的调用以外，Hystrix还提供了准实时的调用监控（Hystrix Dashboard），Hystrix会持续地记录所有通过Hystrix发起的请求的执行信息，并以统计报表和图形的形式展示给用户，包括每秒执行多少请求多少成功，多少失败等。Netflix通过hystrix-metrics-event-stream项目实现了对以上指标的监控。Spring Cloud也提供了Hystrix Dashboard的整合，对监控内容转化成可视化界面。
+
+##### pom.xml
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+</dependency>
+
+```
+
+##### application.yml
+
+```bash
+server:
+  port: 9001
+```
+
+##### 主启动
+
+```java
+@SpringBootApplication
+@EnableHystrixDashboard //注解
+public class HystrixDashboardMain {
+    public static void main(String[] args) {
+        SpringApplication.run(MainApp9001.class,args);
+    }
+}
+
+```
+
+##### 被监控的服务需要加入依赖
+
+```xml
+<!-- actuator监控信息完善 -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+##### 输入地址：`http://localhost:9001/hystrix` ,启动成功看到下图
+
+![](https://static01.imgkr.com/temp/68c00f0b2b7b4f60a05a61581924b3e9.png )
+
+##### 在页面内输入被监控的服务地址：`http://localhost:8001/hystrix.stream`	如果出现下图
+
+![](https://static01.imgkr.com/temp/e79de743740c45929268530a00ee71bf.png )
+
+则需要在监控的服务项目里的主启动加入下面代码
+
+```java
+@SpringBootApplication
+@EnableEurekaClient
+@EnableCircuitBreaker
+public class PaymentHystrixMain8001 {
+    public static void main(String[] args) {
+        SpringApplication.run(PaymentHystrixMain8001.class, args);
+    }
+
+    /**
+     * 此配置是为了服务监控而配置，与服务容错本身无关，springcloud升级后的坑
+     * ServletRegistrationBean因为springboot的默认路径不是"/hystrix.stream"，
+     * 只要在自己的项目里配置上下面的servlet就可以了
+     */
+    @Bean
+    public ServletRegistrationBean getServlet() {
+        HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+        registrationBean.setLoadOnStartup(1);
+        registrationBean.addUrlMappings("/hystrix.stream");
+        registrationBean.setName("HystrixMetricsStreamServlet");
+        return registrationBean;
+    }
+}
+```
+
+
+
+点击Monitor Stream，如果页面一直Loading则需要请求一下8001的接口，直至出现下图则代表成功
+
+![](https://static01.imgkr.com/temp/86399d7e62314b6eab8a28ac9de5337d.png )
+
+##### 图解
+
+实心圆：共有两种含义。它通过颜色的变化代表了实例的健康程度，它的健康度从绿色<黄色<橙色<红色递减。
+该实心圆除了颜色的变化之外，它的大小也会根据实例的请求流量发生变化，流量越大该实心圆就越大。所以通过该实心圆的展示，就可以在大量的实例中快速的发现`故障实例和高压力实例`。
+
+曲线：用来记录2分钟内流量的相对变化，可以通过它来观察到流量的上升和下降趋势。
+
